@@ -1,12 +1,12 @@
 import { Shallow } from 'shallow-render';
-import { MazeCardComponent } from './maze-card.component';
-import { ComponentsModule } from '../components.module';
+import { MazeComponent } from './maze.component';
+import { ComponentsModule } from './components.module';
 
 describe('MazeCardComponent', () => {
-  let component: Shallow<MazeCardComponent>;
+  let component: Shallow<MazeComponent>;
 
   beforeEach(() => {
-    component = new Shallow(MazeCardComponent, ComponentsModule);
+    component = new Shallow(MazeComponent, ComponentsModule);
     jest.clearAllMocks();
   });
 

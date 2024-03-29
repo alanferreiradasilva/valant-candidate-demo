@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using ValantDemoApi.Services;
 
 namespace ValantDemoApi.Controllers
 {
@@ -12,33 +13,29 @@ namespace ValantDemoApi.Controllers
   public class ScenarioController : ControllerBase
   {
     private readonly ILogger<ScenarioController> _logger;
+    private readonly IScenarioService _service;
     private List<List<string>> _scenarios = new List<List<string>>();
 
-    public ScenarioController(ILogger<ScenarioController> logger)
+    public ScenarioController(ILogger<ScenarioController> logger, IScenarioService service)
     {
         _logger = logger;
+        _service = service;
     }
 
     [HttpGet]
     public IEnumerable<IEnumerable<string>> GetAvailableScenarios()
     {
-        _scenarios.Add(new List<string> { "SOXXXXXXXX", "OOOXXXXXXX", "OXOOOXOOOO", "XXXXOXOXXO", "OOOOOOOXXO", "OXXOXXXXXO", "OOOOXXXXXE" });
-          
+      var result = _service.GetAll();
 
-      return _scenarios;
+      return result;
     }
 
     [HttpPost]
     public IEnumerable<IEnumerable<string>> Post(string[] model)
     {
-      _scenarios.Add(model.ToList());
-
-      return _scenarios;
+      var result = _service.Save(model);
+      
+      return result;
     }
   }
-}
-
-public class ScenarioModel
-{
-  public IEnumerable<string> Schema { get; set; }
 }

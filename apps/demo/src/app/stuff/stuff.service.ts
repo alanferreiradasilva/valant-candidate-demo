@@ -11,4 +11,8 @@ export class StuffService {
   public getStuff(): Observable<string[]> {
     return this.httpClient.maze();
   }
+
+  public getScenarios(): Observable<string[]> {
+    return this.httpClient.scenario();
+  }
 }

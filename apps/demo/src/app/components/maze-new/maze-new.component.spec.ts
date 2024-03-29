@@ -1,12 +1,12 @@
 import { Shallow } from 'shallow-render';
-import { MazeCardComponent } from './maze-card.component';
+import { MazeNewComponent } from './maze-new.component';
 import { ComponentsModule } from '../components.module';
 
 describe('MazeCardComponent', () => {
-  let component: Shallow<MazeCardComponent>;
+  let component: Shallow<MazeNewComponent>;
 
   beforeEach(() => {
-    component = new Shallow(MazeCardComponent, ComponentsModule);
+    component = new Shallow(MazeNewComponent, ComponentsModule);
     jest.clearAllMocks();
   });
 
@@ -17,6 +17,6 @@ describe('MazeCardComponent', () => {
 
   it('should have as title "Maze Card demo"', async () => {
     const { instance } = await component.render();
-    expect(instance.title).toBe('Maze Card demo');
+    expect(instance.title).toBe('Maze new');
   });
 });

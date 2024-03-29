@@ -27,5 +27,14 @@ export class AppComponent implements OnInit {
         this.logger.error('Error getting stuff: ', error);
       },
     });
+
+    this.stuffService.getScenarios().subscribe({
+      next: (response: string[]) => {
+        //this.data = response;
+      },
+      error: (error) => {
+        this.logger.error('Error getting stuff: ', error);
+      },
+    });
   }
 }

@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-title">
+    <h1>{{ title }}</h1>
+  </div>
+  <div class="card-body">
+    <div class="maze-container" (keydown)="onKeyDown($event)">
+      <div *ngFor="let row of maze; let i = index" class="maze-row">
+        <div *ngFor="let cell of row; let j = index" class="maze-cell" [ngClass]="getCellClass(i, j)">
+          <div class="player" *ngIf="i === playerPosition.y && j === playerPosition.x"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

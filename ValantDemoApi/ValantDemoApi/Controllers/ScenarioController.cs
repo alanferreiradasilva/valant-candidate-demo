@@ -33,6 +33,8 @@ namespace ValantDemoApi.Controllers
     [HttpPost]
     public IEnumerable<IEnumerable<string>> Post(string[] model)
     {
+      model = model.Select(x => x = x.ToUpper()).ToArray();
+
       var result = _service.Save(model);
       
       return result;

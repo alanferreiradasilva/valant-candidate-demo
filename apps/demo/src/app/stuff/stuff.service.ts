@@ -15,4 +15,8 @@ export class StuffService {
   public getScenarios(): Observable<string[]> {
     return this.httpClient.scenario();
   }
+
+  public postScenarios(data: string[]): Observable<string[]> {
+    return this.httpClient.postScenarios(data);
+  }
 }

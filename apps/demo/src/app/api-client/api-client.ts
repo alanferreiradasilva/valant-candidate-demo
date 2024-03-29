@@ -81,6 +81,34 @@ export class Client {
         }));
     }
 
+    postScenarios(data: string[]): Observable<string[]> {
+        let url_ = this.baseUrl + "/scenario";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            body: data,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processMaze(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processMaze(<any>response_);
+                } catch (e) {
+                    return <Observable<string[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string[]>><any>_observableThrow(response_);
+        }));
+    }
+
+
     protected processMaze(response: HttpResponseBase): Observable<string[]> {
         const status = response.status;
         const responseBlob =

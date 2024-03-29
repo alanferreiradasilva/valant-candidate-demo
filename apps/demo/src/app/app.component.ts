@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.logger.log('Welcome to the AppComponent');
-    this.getStuff();
+    this.getStuff();    
   }
 
   private getStuff(): void {
@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     this.stuffService.getScenarios().subscribe({
       next: (response: string[]) => {
         //this.data = response;
+        console.log(response);
       },
       error: (error) => {
         this.logger.error('Error getting stuff: ', error);

@@ -23,9 +23,9 @@ describe('MazeCardComponent', () => {
     expect(rendering).toBeTruthy();
   });
 
-  it('should have as title "Valant demo"', async () => {
+  it('should have as title "Maze Card demo"', async () => {
     const { instance } = await component.render();
-    expect(instance.title).toBe('Valant demo');
+    expect(instance.title).toBe('Maze Card demo');
   });
 
   it('should render a banner message', async () => {

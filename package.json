@@ -49,6 +49,7 @@
     "cross-env": "^7.0.3",
     "rxjs": "~6.6.3",
     "start-server-and-test": "^1.15.4",
+    "sweetalert2": "^11.10.7",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"
   },

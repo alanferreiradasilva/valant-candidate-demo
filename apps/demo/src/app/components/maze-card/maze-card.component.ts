@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'maze-card',
@@ -25,8 +26,6 @@ export class MazeCardComponent implements OnInit {
     ['O','O','O','O','X','X','X','X','X','E']
   ];
 
-  constructor(/*private logger: LoggingService, private stuffService: StuffService*/) {}
-
   ngOnInit() {
     this.playerPosition = this.startPosition();
   }
@@ -47,6 +46,18 @@ export class MazeCardComponent implements OnInit {
     }
   }
 
+  changeXaxis(x: number) {    
+    if (x >= 0 && x < this.maze[0].length) {
+      this.playerPosition.x = x;
+    }
+  }
+
+  changeYaxis(y: number) {    
+    if (y >= 0 && y < this.maze.length) {
+      this.playerPosition.y = y;
+    }
+  }
+
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
 
@@ -54,16 +65,16 @@ export class MazeCardComponent implements OnInit {
 
     switch (event.key) {
       case 'ArrowUp':
-        this.playerPosition.y--;
+        this.changeYaxis(this.playerPosition.y - 1);
         break;
       case 'ArrowDown':
-        this.playerPosition.y++;
+        this.changeYaxis(this.playerPosition.y + 1);
         break;
       case 'ArrowLeft':
-        this.playerPosition.x--;
+        this.changeXaxis(this.playerPosition.x - 1);
         break;
       case 'ArrowRight':
-        this.playerPosition.x++;
+        this.changeXaxis(this.playerPosition.x + 1);
         break;
     }
 
@@ -71,18 +82,20 @@ export class MazeCardComponent implements OnInit {
   }
 
   private updateMazeState() {    
-    let x = this.playerPosition.x;
-    let y = this.playerPosition.y;
-
-    console.log('PlayerPosition: ' + JSON.stringify(this.playerPosition));
+    const x = this.playerPosition.x;
+    const y = this.playerPosition.y;
 
     this.currentCellValue = this.maze[y][x];
 
     if (this.currentCellValue === 'E') {
-      const answer = confirm("END GAME!!!");
-      if (answer){
-        this.playerPosition = { x: this.initialPosition.x, y: this.initialPosition.y };
-      }
+
+      this.playerPosition = { x: this.initialPosition.x, y: this.initialPosition.y };
+
+      Swal.fire("Game finished successfully!").then((result)=>{
+        if (result.isConfirmed) {
+          return;
+        }
+      });
 
     } else if (this.currentCellValue === 'X') {
       this.playerPosition = { x: this.previousPosition.x, y: this.previousPosition.y };

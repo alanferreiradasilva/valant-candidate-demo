@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { StuffService } from '../../stuff/stuff.service';
 import Swal from 'sweetalert2';
 import { LoggingService } from '../../logging/logging.service';
+import { MazeService } from '../../maze/maze.service';
 
 @Component({
   selector: 'maze-new',
@@ -19,16 +20,17 @@ export class MazeNewComponent implements OnInit {
 
   @ViewChild('closeButton') buttonRef: ElementRef;
 
-  constructor(private logger: LoggingService, private stuffService: StuffService){}
+  constructor(private logger: LoggingService, private stuffService: StuffService, private mazeService: MazeService){}
 
-  ngOnInit() {
-    
-  }  
+  ngOnInit() { }  
 
   save() {
     if (this.isValid()) {
       this.stuffService.postScenarios(this.data).subscribe({
-        next: (response: string[]) => {
+        next: (response: any[]) => {
+
+          this.mazeService.updateMazeList(response);
+
           Swal.fire('New maze save successfully!')
             .then((result)=> { 
               if (result.isConfirmed) {

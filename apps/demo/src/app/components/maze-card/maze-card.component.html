@@ -1,7 +1,30 @@
-<div class="maze-container" (keydown)="onKeyDown($event)">
-  <div *ngFor="let row of maze; let i = index" class="maze-row">
-    <div *ngFor="let cell of row; let j = index" class="maze-cell" [ngClass]="getCellClass(i, j)">
-      <div class="player" *ngIf="i === playerPosition.y && j === playerPosition.x"></div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#maze-card-modal" #openButton hidden>
+  Open modal
+</button>
+
+<!-- Modal -->
+<div #mazeModal class="modal fade" id="maze-card-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="maze-card-modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="maze-card-modalLabel">Good game</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center">        
+
+        <div class="maze-container mt-5" (keydown)="onKeyDown($event)" #mazeContainer>
+          <div *ngFor="let row of maze; let i = index" class="maze-row">
+            <div *ngFor="let cell of row; let j = index" class="maze-cell" [ngClass]="getCellClass(i, j)">
+              <div class="player" *ngIf="i === playerPosition.y && j === playerPosition.x"></div>
+            </div>
+          </div>
+        </div>       
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButton>Quit</button>        
+      </div>
     </div>
   </div>
 </div>

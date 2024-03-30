@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -8,7 +8,12 @@ import Swal from 'sweetalert2';
 })
 export class MazeCardComponent implements OnInit {
   public title = 'Maze Card demo';
-  public data: string[];
+  
+  @Output() openMazeModal = new EventEmitter();
+
+  @ViewChild('openButton') buttonRef: ElementRef;
+  @ViewChild('mazeModal') mazeModalRef: ElementRef;
+  @ViewChild('mazeContainer') mazeContainerRef: ElementRef;
 
   playerPosition: { x: number, y: number };
   initialPosition: { x: number, y: number };
@@ -16,25 +21,28 @@ export class MazeCardComponent implements OnInit {
   
   currentCellValue: string;
   
-  public maze: string [][] = [
-    ['S','O','X','X','X','X','X','X','X','X'], 
-    ['O','O','O','X','X','X','X','X','X','X'], 
-    ['O','X','O','O','O','X','O','O','O','O'], 
-    ['X','X','X','X','O','X','O','X','X','O'], 
-    ['O','O','O','O','O','O','O','X','X','O'], 
-    ['O','X','X','O','X','X','X','X','X','O'], 
-    ['O','O','O','O','X','X','X','X','X','E']
-  ];
+  public maze: string [][] = [];
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  openMazeCardModal(value: string[]) {
+    this.maze = [];
+
+    for (let i = 0; i < value.length; i++) {
+      const item = value[i].split('');
+      this.maze.push(item);
+    }    
+
+    this.buttonRef.nativeElement.click();
     this.playerPosition = this.startPosition();
+    this.openMazeModal.emit();
   }
   
   private startPosition() {
     const maze = this.maze;
     for (let x = 0; x < maze.length; x++) {
       for (let y = 0; y < maze[x].length; y++) {
-        const element = maze[x][y].toUpperCase();
+        const element = maze[y][x].toUpperCase();
         
         if (element === 'S') {
           this.currentCellValue = element;
@@ -60,6 +68,8 @@ export class MazeCardComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
+
+    if (this.previousPosition == undefined) return;
 
     this.previousPosition = { x: this.playerPosition.x, y: this.playerPosition.y };
 
@@ -93,6 +103,7 @@ export class MazeCardComponent implements OnInit {
 
       Swal.fire("Game finished successfully!").then((result)=>{
         if (result.isConfirmed) {
+          this.startPosition();
           return;
         }
       });

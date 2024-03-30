@@ -12,7 +12,7 @@ export class StuffService {
     return this.httpClient.maze();
   }
 
-  public getScenarios(): Observable<string[]> {
+  public getScenarios(): Observable<any[]> {
     return this.httpClient.scenario();
   }
 

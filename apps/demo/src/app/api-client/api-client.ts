@@ -55,7 +55,7 @@ export class Client {
         }));
     }
 
-    scenario(): Observable<string[]> {
+    scenario(): Observable<any[]> {
         let url_ = this.baseUrl + "/scenario";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -74,10 +74,10 @@ export class Client {
                 try {
                     return this.processMaze(<any>response_);
                 } catch (e) {
-                    return <Observable<string[]>><any>_observableThrow(e);
+                    return <Observable<any[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string[]>><any>_observableThrow(response_);
+                return <Observable<any[]>><any>_observableThrow(response_);
         }));
     }
 

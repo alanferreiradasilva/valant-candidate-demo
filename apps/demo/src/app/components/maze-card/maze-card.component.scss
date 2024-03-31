@@ -30,6 +30,10 @@
   animation: changeColor 1s infinite;
 }
 
+.maze-controls button{
+  width: 55px;
+}
+
 @keyframes changeColor {
     0% { background-color: red; }
     50% { background-color: blue; }

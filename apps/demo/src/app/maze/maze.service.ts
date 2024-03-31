@@ -12,6 +12,5 @@ export class MazeService {
 
     updateMazeList(value: string[][]) {
         this.mazeList.next(value);
-        console.log('fixed changed', value);
     }
 }

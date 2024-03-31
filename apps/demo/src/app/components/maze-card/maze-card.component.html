@@ -13,17 +13,36 @@
       </div>
       <div class="modal-body d-flex justify-content-center align-items-center">        
 
-        <div class="maze-container mt-5" (keydown)="onKeyDown($event)" #mazeContainer>
+        <div class="maze-container mt-5" #mazeContainer>
           <div *ngFor="let row of maze; let i = index" class="maze-row">
             <div *ngFor="let cell of row; let j = index" class="maze-cell" [ngClass]="getCellClass(i, j)">
               <div class="player" *ngIf="i === playerPosition.y && j === playerPosition.x"></div>
             </div>
           </div>
-        </div>       
+        </div>
+
+        <div class="row mt-5 maze-controls col-3 ms-3">
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"><button class="btn btn-outline-info btn-sm" (click)="moveYaxis(-1)">UP</button></div>
+            <div class="col-4"></div>
+
+          </div>
+          <div class="row">
+              <div class="col-4"><button class="btn btn-outline-info btn-sm" (click)="moveXaxis(-1)">Left</button></div>
+              <div class="col-4"></div>
+              <div class="col-4"><button class="btn btn-outline-info btn-sm" (click)="moveXaxis(1)">Right</button></div>
+          </div>
+          <div class="row">
+              <div class="col-4"></div>
+              <div class="col-4"><button class="btn btn-outline-info btn-sm" (click)="moveYaxis(1)">Down</button></div>
+              <div class="col-4"></div>
+          </div>          
+        </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButton>Quit</button>        
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quit</button>        
       </div>
     </div>
   </div>

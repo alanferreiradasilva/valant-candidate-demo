@@ -23,6 +23,8 @@ export class MazeCardComponent implements OnInit {
   
   public maze: string [][] = [];
 
+  isFirstLoad: boolean;
+
   ngOnInit() { }
 
   openMazeCardModal(value: string[]) {
@@ -34,21 +36,30 @@ export class MazeCardComponent implements OnInit {
     }    
 
     this.buttonRef.nativeElement.click();
-    this.playerPosition = this.startPosition();
+    this.startPosition();
     this.openMazeModal.emit();
+  }
+
+  revertPlayerPosition(x: number, y: number){
+    this.playerPosition = {
+      x: y,
+      y: x,
+    };
   }
   
   private startPosition() {
+    
     const maze = this.maze;
     for (let x = 0; x < maze.length; x++) {
-      for (let y = 0; y < maze[x].length; y++) {
-        const element = maze[y][x].toUpperCase();
+      for (let y = 0; y < maze[0].length; y++) {
+        const element = maze[x][y].toUpperCase();
         
         if (element === 'S') {
+          const axis = (xAxis: number, yAxis: number) => ({ x: xAxis, y: yAxis }) as any;
           this.currentCellValue = element;
-          this.initialPosition = { x: x, y: y };
-          this.previousPosition = { x: x, y: y };
-          return { x: x, y: y };
+          this.initialPosition = axis(x ,y);
+          this.previousPosition = axis(x ,y);          
+          this.revertPlayerPosition(x, y);
         }
       }
     }
@@ -66,28 +77,19 @@ export class MazeCardComponent implements OnInit {
     }
   }
 
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-
-    if (this.previousPosition == undefined) return;
-
+  setPreviousPosition() { 
     this.previousPosition = { x: this.playerPosition.x, y: this.playerPosition.y };
+  }
 
-    switch (event.key) {
-      case 'ArrowUp':
-        this.changeYaxis(this.playerPosition.y - 1);
-        break;
-      case 'ArrowDown':
-        this.changeYaxis(this.playerPosition.y + 1);
-        break;
-      case 'ArrowLeft':
-        this.changeXaxis(this.playerPosition.x - 1);
-        break;
-      case 'ArrowRight':
-        this.changeXaxis(this.playerPosition.x + 1);
-        break;
-    }
+  moveYaxis(y: number){
+    this.setPreviousPosition();
+    this.changeYaxis(this.playerPosition.y + y);
+    this.updateMazeState();
+  }
 
+  moveXaxis(x: number){
+    this.setPreviousPosition();
+    this.changeXaxis(this.playerPosition.x + x);
     this.updateMazeState();
   }
 

@@ -21,8 +21,6 @@ export class MazeComponent implements OnInit {
   initialPosition: { x: number, y: number };
   previousPosition: { x: number, y: number };
   
-  currentCellValue: string;
-  
   public mazeList: string [][] = [];
 
   constructor(private logger: LoggingService, private stuffService: StuffService, private mazeService: MazeService) {}

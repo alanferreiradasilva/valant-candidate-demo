@@ -1,0 +1,30 @@
+<div class="container-fuid mt-3">
+  <div class="card p-3">
+    <div class="card-title">
+      
+      <div class="row">
+        <div class="col-6">
+          <h2>Maze list</h2>
+        </div>
+
+        <div class="col-6">
+          <maze-new></maze-new>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+
+      <maze-card #mazeCard></maze-card>
+
+      <div class="row">
+        <div *ngFor="let item of mazeList; let i = index" class="col-2 m-1 mt-4" style="cursor: pointer;" (click)="openMaze(i)">
+          <ul *ngFor="let subItem of item" class="list-group">
+            <li class="list-group-item">{{ subItem }}</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

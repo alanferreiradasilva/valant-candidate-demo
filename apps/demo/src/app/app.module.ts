@@ -6,6 +6,8 @@ import { LoggingService } from './logging/logging.service';
 import { StuffService } from './stuff/stuff.service';
 import { environment } from '../environments/environment';
 import { ValantDemoApiClient } from './api-client/api-client';
+import { ComponentsModule } from './components/components.module';
+import { MazeService } from './maze/maze.service';
 
 export function getBaseUrl(): string {
   return environment.baseUrl;
@@ -13,10 +15,11 @@ export function getBaseUrl(): string {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, ComponentsModule],
   providers: [
     LoggingService,
     StuffService,
+    MazeService,
     ValantDemoApiClient.Client,
     { provide: ValantDemoApiClient.API_BASE_URL, useFactory: getBaseUrl },
   ],

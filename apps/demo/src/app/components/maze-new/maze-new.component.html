@@ -1,0 +1,43 @@
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  New maze
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add new maze</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <div class="mb-3">
+                <label for="maze-textarea" class="form-label"></label>
+                <textarea class="form-control" id="maze-textarea" rows="3" rows="10" cols="7" 
+                  [(ngModel)]="textarea" 
+                  placeholder="SOXXXXXXXX
+OOOXXXXXXX
+OXOOOXOOOO
+XXXXOXOXXO
+OOOOOOOXXO
+OXXOXXXXXO
+OOOOXXXXXE"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButton>Close</button>
+        <button type="button" class="btn btn-primary" [ngClass]="saveButtonIsDisabled ? 'disabled' : ''" [disabled]="saveButtonIsDisabled" (click)="save()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,13 @@ This project was generated using [Nx](https://nx.dev).
 
 [Interactive Tutorial](https://nx.dev/angular-tutorial/01-create-application)
 
+## Before Get started
+
+Use nodejs v16.20.2 version to execute projects whitout errors.
+Use .NET 8.0 for solve nx conflicts.
+Angular unit tests are not working with nodejs v16.20.2 version.
+
+
 ## Get started
 
 Run `npm install` to install the UI project dependencies. Grab a cup of coffee or your beverage of choice.
